@@ -140,7 +140,7 @@ func new_tilemap(tilemap_data):
 				var flip = int(tile["f"])
 				var flipX = bool(flip & 1)
 				var flipY = bool(flip & 2)
-				var grid_coords = coordId_to_gridCoords(tile.d[1], tilemap_data.__cWid)
+				var grid_coords = pxCoords_to_gridCoords(tile.px, tilemap_data.__gridSize)
 				tilemap.set_cellv(grid_coords, tile.d[1], flipX, flipY)
 				tilemap.set_cellv(grid_coords, tile.t, flipX, flipY)
 
@@ -214,6 +214,14 @@ func coordId_to_gridCoords(coordId, gridWidth):
 	var gridX = coordId - (gridY * gridWidth)
 
 	return Vector2(gridX, gridY)
+
+
+func pxCoords_to_gridCoords(pixelValues, gridSize):
+	var gridY = floor(pixelValues[1] / gridSize)
+	var gridX = floor(pixelValues[0] / gridSize)
+
+	return Vector2(gridX, gridY)
+
 
 
 #converts tileId to grid coordinates.
